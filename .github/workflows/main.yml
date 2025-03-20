@@ -1,0 +1,19 @@
+name: Publish Node Docker
+on:
+  push:
+   branches: [ main ]
+  pull_request:
+    branches: [ main ]
+      
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build & Push Image
+      run: |
+        echo "${{ secrets.DOCKERPW }}" | docker login -u "nitiwadee6513169" --password-stdin
+        docker image build -t nitiwadee6513169/EGCO341_Docker2:latest .
+        docker push nitiwadee6513169/EGCO341_Docker2:latest
